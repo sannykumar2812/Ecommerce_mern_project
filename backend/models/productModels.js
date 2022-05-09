@@ -1,42 +1,38 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema({
-    name : {
+    name: {
         type: String,
-        require:[true,"Please enter product Name"]
+        require: [true, "Please Enter product Name"],
+        trim: true,
     },
-    description : {
+    description: {
         type: String,
-        require:[true,"Please enter product Description"]
+        require: [true, "Please Enter product Description"],
     },
-    price:{
+    price: {
         type: Number,
-        require:[true,"Please enter product Price"],
-        maxLength : [8,"Price cannot exceed 8 Caracters"]
+        require: [true, "Please Enter product Price"],
+        maxLength: [8, "Price cannot exceed 8 characters"],
     },
-    rating:{
-        type:Number,
-        default:0
+    ratings: {
+        type: Number,
+        default: 0,
     },
+    images: [{
+        public_id: {
+            type: String,
+            required: true,
+        },
+        url: {
+            type: String,
+            required: true,
+        },
+    }, ],
     category: {
         type: String,
         require: [true, "Please Enter Product Category"],
     },
-
-    // for images we use cloudNavi because we get public_id and url ffrom here
-    images: [
-        {
-        public_id: {
-            type: String,
-            require: true,
-        },
-        url: {
-            type: String,
-            require: true,
-        },
-        },
-    ],
-    
     Stock: {
         type: Number,
         required: [true, "Please Enter product Stock"],
@@ -47,41 +43,33 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 0,
     },
-    reviews: [
-        {
-            user: {
-                type: mongoose.Schema.ObjectId,
-                ref: "User",
-                require: true,
-            },
-            name: {
-                type: String,
-                require: true,
-            },
-            rating: {
-                type: Number,
-                required: true,
-            },
-            comment: {
-                type: String,
-                required: true,
-            },
+    reviews: [{
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            required: true,
         },
-    ],  
-    // user: {
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: "User",
-    //     required: true,
-    // },
+        name: {
+            type: String,
+            required: true,
+        },
+        rating: {
+            type: Number,
+            required: true,
+        },
+        comment: {
+            type: String,
+            required: true,
+        },
+    }, ],
     createdAt: {
         type: Date,
         default: Date.now,
     },
-    updatedAt:{
-        type:Date,
-        default :Date.now
-    }
+    updatedAt :{
+        type: Date,
+        default: Date.now,
+    },
 });
-    
+
 module.exports = mongoose.model("Product", productSchema);
-    

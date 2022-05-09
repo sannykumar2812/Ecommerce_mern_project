@@ -7,8 +7,6 @@ const connectDatabase = ()=>{
 mongoose.connect(process.env.DB_URI,{useCreateIndex:true,useUnifiedTopology:true,
     useNewUrlParser:true}).then(()=>{
         console.log(`mongodb connection with server successfully..!!`)
-    }).catch((err)=>{
-        console.log(err)
     })
 }
 
