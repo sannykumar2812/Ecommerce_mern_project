@@ -46,11 +46,11 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
 });
 
+//yha .pre lga kar ek event bna liya
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
-
   this.password = await bcrypt.hash(this.password, 10);
 });
 
@@ -62,9 +62,8 @@ userSchema.methods.getJWTToken = function () {
 };
 
 // Compare Password
-
-userSchema.methods.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+userSchema.methods.comparePassword = async function (enteredpassword) {
+  return await bcrypt.compare(enteredpassword, this.password);
 };
 
 // Generating Password Reset Token
