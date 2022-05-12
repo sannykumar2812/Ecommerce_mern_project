@@ -38,10 +38,10 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Get search Product
+// Get (search )  All Product
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  // const resultPerPage = 8;
-  // const productsCount = await Product.countDocuments();
+  const resultPerPage = 3;
+  const productsCount = await Product.countDocuments();
 
   // const apiFeature = new ApiFeatures(Product.find(), req.query)
   //   .search()
@@ -54,14 +54,18 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   // apiFeature.pagination(resultPerPage);
 
   // products = await apiFeature.query;
-////////////////////////////////////////////
-const apiFeature = new ApiFeatures(Product.find(),req.query).search();
-const products = await apiFeature.query;
+  ////////////////////////////////////////////
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+  .search()
+  .filter()
+  .pagination(resultPerPage)
+  const products = await apiFeature.query;
+
   res.status(200).json({
     success: true,
     products,
-    // productsCount,
-    // resultPerPage,
+    productsCount,
+    resultPerPage,
     // filteredProductsCount,
   });
 });
@@ -69,7 +73,6 @@ const products = await apiFeature.query;
 // Get All Product (Admin)
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
   const products = await Product.find();
-
   res.status(200).json({
     success: true,
     products,
@@ -79,11 +82,9 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 // Get Product Details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
-
   if (!product) {
     return next(new ErrorHander("Product not found", 404));
   }
-
   res.status(200).json({
     success: true,
     product,
