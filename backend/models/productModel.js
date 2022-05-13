@@ -66,12 +66,13 @@ const productSchema = mongoose.Schema({
       },
     },
   ],
-
-  // user: {
-  //   type: mongoose.Schema.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
+// for know = who makes the product
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  /////
   createdAt: {
     type: Date,
     default: Date.now,

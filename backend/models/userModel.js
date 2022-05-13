@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please Enter Your Password"],
-    minLength: [8, "Password should be greater than 8 characters"],
+    minLength: [5, "Password should be greater than 5 characters"],
     select: false,
   },
   avatar: {
@@ -66,7 +66,7 @@ userSchema.methods.comparePassword = async function (enteredpassword) {
   return await bcrypt.compare(enteredpassword, this.password);
 };
 
-// Generating Password Reset Token
+// Generating Password Reset Token saara google se uthaya hai
 userSchema.methods.getResetPasswordToken = function () {
   // Generating Token
   const resetToken = crypto.randomBytes(20).toString("hex");
