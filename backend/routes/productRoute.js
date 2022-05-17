@@ -17,21 +17,21 @@ const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 router.route("/products").get(getAllProducts);
 
-router.route("/admin/products").get( getAdminProducts);
+router.route("/admin/products").get(getAdminProducts);
 
 router.route("/admin/product/new").post(isAuthenticatedUser,authorizeRoles("admin"),createProduct);
 
-router.route("/product/:id").put(isAuthenticatedUser,authorizeRoles("admin"),updateProduct);
+router.route("/admin/product/:id").put(isAuthenticatedUser,authorizeRoles("admin"),updateProduct);
 
-router.route("/product/:id").delete(isAuthenticatedUser,authorizeRoles("admin"),deleteProduct);
+router.route("/admin/product/:id").delete(isAuthenticatedUser,authorizeRoles("admin"),deleteProduct);
 
 router.route("/product/:id").get(getProductDetails);
 
-// router.route("/review").put(isAuthenticatedUser, createProductReview);
+router.route("/review").put(isAuthenticatedUser, createProductReview);
 
-// router
-//   .route("/reviews")
-//   .get(getProductReviews)
-//   .delete(isAuthenticatedUser, deleteReview);
+router
+  .route("/reviews")
+  .get(getProductReviews)
+  .delete(isAuthenticatedUser, deleteReview);
 
 module.exports = router;
