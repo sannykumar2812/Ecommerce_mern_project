@@ -61,7 +61,7 @@ export const productsReducer = (state = { products: [] }, action) => {
       return {
         loading: false,
         error: action.payload,
-      };
+      }
 
     case CLEAR_ERRORS:
       return {
